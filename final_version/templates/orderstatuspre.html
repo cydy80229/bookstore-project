@@ -1,0 +1,232 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Project</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+		<link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet"  type='text/css'>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+	</head>
+	<style media="screen">
+		nav{
+			font-size: 18px;
+		}
+		.navbar-brand{
+			font-size: 28px
+		}
+		* {
+		box-sizing: border-box
+		}
+		body {
+			color: grey
+		}
+		#sidebar {
+			width: 20%;
+			padding: 10px;
+			margin: 0;
+			float: left
+		}
+		#products {
+			width: 80%;
+			padding: 10px;
+			margin: 0;
+			float: right
+		}
+		ul {
+			list-style: none;
+			padding: 5px
+		}
+		li a {
+			color: darkgray;
+			text-decoration: none
+		}
+		li a:hover {
+			text-decoration: none;
+			color: darksalmon
+		}
+		.fa-circle {
+			font-size: 20px
+		}
+		#red {
+			color: #e94545d7
+		}
+		#teal {
+			color: rgb(69, 129, 129)
+		}
+		#blue {
+			color: #0000ff
+		}
+		.card {
+			width: 250px;
+			display: inline-block;
+			height: 300px
+		}
+		.card-img-top {
+			width: 250px;
+			height: 210px
+		}
+		.card-body p {
+			margin: 2px
+		}
+		.card-body {
+			padding: 0;
+			padding-left: 2px
+		}
+		.filter {
+			display: none;
+			padding: 0;
+			margin: 0
+		}
+
+		.card {
+			width: 190px;
+			display: inline-block;
+			height: 300px
+		}
+		.card-img-top {
+			width: 188px;
+			height: 210px
+		}
+		#mobile-filter {
+			display: none
+		}
+
+
+		.card {
+			width: 230px;
+			display: inline-block;
+			height: 300px;
+			margin-bottom: 10px
+		}
+		.card-img-top {
+			width: 230px;
+			height: 210px
+		}
+		#mobile-filter {
+			display: none
+		}
+		}
+		@media(min-width:568px) and (max-width:767px) {
+		.navbar-nav {
+			margin-left: 20%
+		}
+		.nav-item {
+			padding-left: 10px
+		}
+		.card {
+			width: 205px;
+			display: inline-block;
+			height: 300px;
+			margin-bottom: 10px
+		}
+		.card-img-top {
+			width: 203px;
+			height: 210px
+		}
+		.fa-circle {
+			font-size: 15px
+		}
+		#mobile-filter {
+			display: none
+		}
+		}
+		@media(max-width:567px) {
+		.navbar-nav {
+			margin-left: 0%
+		}
+		.nav-item {
+			padding-left: 10px
+		}
+		#sidebar {
+			width: 100%;
+			padding: 10px;
+			margin: 0;
+			float: left
+		}
+		#products {
+			width: 100%;
+			padding: 5px;
+			margin: 0;
+			float: right
+		}
+		.card {
+			width: 230px;
+			display: inline-block;
+			height: 300px;
+			margin-bottom: 10px;
+			margin-top: 10px
+		}
+		.card-img-top {
+			width: 230px;
+			height: 210px
+		}
+		.list-group-item {
+			padding: 3px
+		}
+		.offset-1 {
+			margin-left: 8%
+		}
+		.filter {
+			display: block;
+			margin-left: 70%;
+			margin-top: 2%
+		}
+		#sidebar {
+			display: none
+		}
+		#mobile-filter {
+			padding: 10px
+		}
+		}
+
+	</style>
+	<body>
+		<nav class="navbar navbar-inverse">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#"><i class="fa-solid fa-book fa-1x"></i> Book Store</a>
+				</div>
+		
+				<ul class="nav navbar-nav">
+					<li><a href="{{url_for('home')}}">Home</a></li>
+					<li><a href="{{url_for('addBook')}}">Add Book</a></li>
+					<li><a href="{{url_for('updateBook')}}">Update Book</a></li>
+					<li><a href="{{url_for('orderStatus')}}">Order Status</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#"><i class="fa-solid fa-cart-arrow-down fa-1x"></i> Cart</a></li>
+					<li><a href="#"><i class="fa-solid fa-house-chimney-user fa-1x"></i> My Account</a></li>
+					<li><a href="/logout"><i class="fa fa-sign-out fa-1x"></i> Log out</a></li>
+				</ul>
+			</div>
+		</nav>
+
+		<section id="products">
+		 <h2><b>Order Status</b></h2>
+			  <h4>please enter start and end date.</h4>
+			  
+			  <form action="{{url_for('orderStatusSubmit')}}" >
+				<label>Start Date(YYYY-MM-DD):</label>
+				<input type="text" name= "startdate">
+				<br/>
+				<br/>
+				<label>End Date(YYYY-MM-DD):</label>
+				<input type="text" name= "enddate">
+				<br/>
+				<br/>
+				<input type="submit" value= "Submit">
+				<br/>
+				<br/>
+			  </form>
+		
+		</section> 
+
+	</body>
+</html>

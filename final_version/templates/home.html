@@ -1,0 +1,390 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Project</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+		<link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet"  type='text/css'>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+	</head>
+	<style media="screen">
+		nav{
+			font-size: 18px;
+		}
+		.navbar-brand{
+			font-size: 28px
+		}
+		* {
+		box-sizing: border-box
+		}
+		body {
+			color: grey
+		}
+		#sidebar {
+			width: 20%;
+			padding: 10px;
+			margin: 0;
+			float: left
+		}
+		#products {
+			width: 80%;
+			padding: 10px;
+			margin: 0;
+			float: right
+		}
+		ul {
+			list-style: none;
+			padding: 5px
+		}
+		li a {
+			color: darkgray;
+			text-decoration: none
+		}
+		li a:hover {
+			text-decoration: none;
+			color: darksalmon
+		}
+		.fa-circle {
+			font-size: 20px
+		}
+		#red {
+			color: #e94545d7
+		}
+		#teal {
+			color: rgb(69, 129, 129)
+		}
+		#blue {
+			color: #0000ff
+		}
+		.card {
+			width: 250px;
+			display: inline-block;
+			height: 300px
+		}
+		.card-img-top {
+			width: 250px;
+			height: 210px
+		}
+		.card-body p {
+			margin: 2px
+		}
+		.card-body {
+			padding: 0;
+			padding-left: 2px
+		}
+		.filter {
+			display: none;
+			padding: 0;
+			margin: 0
+		}
+
+		.card {
+			width: 190px;
+			display: inline-block;
+			height: 300px
+		}
+		.card-img-top {
+			width: 188px;
+			height: 210px
+		}
+		#mobile-filter {
+			display: none
+		}
+
+
+		.card {
+			width: 230px;
+			display: inline-block;
+			height: 300px;
+			margin-bottom: 10px
+		}
+		.card-img-top {
+			width: 230px;
+			height: 210px
+		}
+		#mobile-filter {
+			display: none
+		}
+		}
+		@media(min-width:568px) and (max-width:767px) {
+		.navbar-nav {
+			margin-left: 20%
+		}
+		.nav-item {
+			padding-left: 10px
+		}
+		.card {
+			width: 205px;
+			display: inline-block;
+			height: 300px;
+			margin-bottom: 10px
+		}
+		.card-img-top {
+			width: 203px;
+			height: 210px
+		}
+		.fa-circle {
+			font-size: 15px
+		}
+		#mobile-filter {
+			display: none
+		}
+		}
+		@media(max-width:567px) {
+		.navbar-nav {
+			margin-left: 0%
+		}
+		.nav-item {
+			padding-left: 10px
+		}
+		#sidebar {
+			width: 100%;
+			padding: 10px;
+			margin: 0;
+			float: left
+		}
+		#products {
+			width: 100%;
+			padding: 5px;
+			margin: 0;
+			float: right
+		}
+		.card {
+			width: 230px;
+			display: inline-block;
+			height: 300px;
+			margin-bottom: 10px;
+			margin-top: 10px
+		}
+		.card-img-top {
+			width: 230px;
+			height: 210px
+		}
+		.list-group-item {
+			padding: 3px
+		}
+		.offset-1 {
+			margin-left: 8%
+		}
+		.filter {
+			display: block;
+			margin-left: 70%;
+			margin-top: 2%
+		}
+		#sidebar {
+			display: none
+		}
+		#mobile-filter {
+			padding: 10px
+		}
+		}
+		
+		table, th, td {
+		  border: 1px solid black;
+		  border-collapse: collapse;
+		}
+
+		table.center {
+		  margin-left: auto; 
+		  margin-right: auto;
+		}
+
+	</style>
+	<body>
+		<nav class="navbar navbar-inverse">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#"><i class="fa-solid fa-book fa-1x"></i> Book Store</a>
+				</div>
+		
+				<ul class="nav navbar-nav">
+					<li><a href="{{url_for('home')}}">Home</a></li>
+					{% if myLevel == 'manager' %}
+					<li><a href="{{url_for('addBook')}}">Add Book</a></li>
+					<li><a href="{{url_for('updateBook')}}">Update Book</a></li>
+					<li><a href="{{url_for('orderStatus')}}">Order Status</a></li>
+					<li id='managerId'>Login As Manager</li>
+					{% endif %}
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li  id="cart"><a href="#"><i class="fa-solid fa-cart-arrow-down fa-1x"></i> Cart</a></li>
+					<li><a href="#"><i class="fa-solid fa-house-chimney-user fa-1x"></i> My Account</a></li>
+					<li><a href="/logout"><i class="fa fa-sign-out fa-1x"></i> Log out</a></li>
+				</ul>
+			</div>
+		</nav>
+
+		<!--
+		<div class="container">
+			<h3>The home page!</h3>
+			<p>Some element here.</p>
+		</div>
+		-->
+
+
+		<section id="sidebar">
+			<div>
+				<h6 class="p-1 border-bottom">Book Finder</h6>
+				<ul>
+					<li><a href="{{url_for('search', catalog='art')}}">Art</a></li>
+					<li><a href="{{url_for('search', catalog='computer_science')}}">Computer Science</a></li>
+					<li><a href="{{url_for('search', catalog='culture')}}">Culture</a></li>
+					<li><a href="{{url_for('search', catalog='data_science')}}">Data Science</a></li>
+					<li><a href="{{url_for('search', catalog='math')}}">Mathmatics</a></li>
+					<li><a href="{{url_for('search', catalog='music')}}">Music</a></li>
+				</ul>
+			</div>
+
+		</section>
+		<section id="products">
+				<!--
+				<div class="container">
+					<table>
+						<img src="{{url_for('static',filename='bookcover/5-Minute_Spider-Man_Stories_(5-Minute Stories).jpg')}}">
+					</table>
+				</div>
+
+				<div class="row">
+					<div class="col-lg-3 col-sm-4 col-11 offset-sm-0 offset-1">
+						<div class="card"> <img class="card-img-top" src="https://images.pexels.com/photos/963486/pexels-photo-963486.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="Card image cap">
+							<div class="card-body">
+								<p class="card-text">Wooden chair with legs</p>
+								<p>$90</p> <span class="fa fa-circle" id="red"></span> <span class="fa fa-circle" id="teal"></span> <span class="fa fa-circle" id="blue"></span>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3 offset-lg-0 col-sm-4 offset-sm-2 col-11 offset-1">
+						<div class="card"> <img class="card-img-top" src="https://images.pexels.com/photos/1125137/pexels-photo-1125137.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="Card image cap">
+							<div class="card-body">
+								<p class="card-text">Ugly chair and table set</p>
+								<p>$100</p> <span class="fa fa-circle" id="red"></span> <span class="fa fa-circle" id="teal"></span> <span class="fa fa-circle" id="blue"></span>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3 col-sm-4 col-11 offset-sm-0 offset-1">
+						<div class="card"> <img class="card-img-top" src="https://images.pexels.com/photos/3757055/pexels-photo-3757055.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="Card image cap">
+							<div class="card-body">
+								<p class="card-text">Leather Lounger</p>
+								<p>$950</p> <span class="fa fa-circle" id="red"></span> <span class="fa fa-circle" id="teal"></span> <span class="fa fa-circle" id="blue"></span>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3 col-sm-4 offset-lg-0 offset-sm-2 col-11 offset-1">
+						<div class="card"> <img class="card-img-top" src="https://images.unsplash.com/photo-1537182534312-f945134cce34?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="Card image cap">
+							<div class="card-body">
+								<p class="card-text">Tree Trunk table set</p>
+								<p>$390</p> <span class="fa fa-circle" id="red"></span> <span class="fa fa-circle" id="teal"></span> <span class="fa fa-circle" id="blue"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row mt-3">
+				<div class="col-lg-3 col-sm-4 col-11 offset-sm-0 offset-1">
+					<div class="card"> <img class="card-img-top" src="https://images.pexels.com/photos/3230274/pexels-photo-3230274.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="Card image cap">
+						<div class="card-body">
+							<p class="card-text">Red Leather Bar Stool</p>
+							 <p>$30</p> <span class="fa fa-circle" id="red"></span> <span class="fa fa-circle" id="teal"></span> <span class="fa fa-circle" id="blue"></span>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-sm-4 offset-lg-0 offset-sm-2 col-11 offset-1">
+					<div class="card"> <img class="card-img-top" src="https://images.pexels.com/photos/3773571/pexels-photo-3773571.png?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="Card image cap">
+						<div class="card-body">
+							<p class="card-text">Modern Dining Table</p>
+							<p>$740</p> <span class="fa fa-circle" id="red"></span> <span class="fa fa-circle" id="teal"></span> <span class="fa fa-circle" id="blue"></span>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-sm-4 col-11 offset-sm-0 offset-1">
+					<div class="card"> <img class="card-img-top" src="https://images.pexels.com/photos/534172/pexels-photo-534172.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="Card image cap">
+						<div class="card-body">
+						<p class="card-text">Boring Dining Table</p>
+						<p>$760</p> <span class="fa fa-circle" id="red"></span> <span class="fa fa-circle" id="teal"></span> <span class="fa fa-circle" id="blue"></span>
+						</div>
+					</div>
+				</div>
+					<div class="col-lg-3 col-sm-4 offset-lg-0 offset-sm-2 col-11 offset-1">
+						<div class="card"> <img class="card-img-top" src="https://images.pexels.com/photos/37347/office-sitting-room-executive-sitting.jpg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="Card image cap">
+							<div class="card-body">
+							<p class="card-text">An Ugly Office</p>
+							<p>$90</p> <span class="fa fa-circle" id="red"></span> <span class="fa fa-circle" id="teal"></span> <span class="fa fa-circle" id="blue"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		-->
+		       <div class="container">
+			       <label id='notifyInfoId'></label>
+			   </div>
+			   <br/>
+				<form action="{{url_for('addBookSubmit')}}" >
+			     <table>
+				     <tr>
+					   <th>   </th>
+					   <th> Book Name   </th>
+					   <th> Author  </th>
+					   <th> ISBN  </th>
+					   <th> publisher  </th>
+					   <th> catalog  </th>
+					   <th> price  </th>
+					   <th> arrivedate  </th>
+					   <th> quantity  </th>
+					  <tr>
+					  {% for book in myBooks %}
+					   <tr>
+						   <td><input type="checkbox" id="{{ book.id }}" name="input{{ book.id }}"></td>
+						   <td><label for="book"> {{ book.bookname }} </label><br></td>
+						   <td><label for="book"> {{ book.author }} </label><br></td>
+						   <td><label for="book"> {{ book.ISBN }} </label><br></td>
+						   <td><label for="book"> {{ book.publisher }} </label><br></td>
+						   <td><label for="book"> {{ book.catalog }} </label><br></td>
+						   <td><label for="book"> {{ book.price }} </label><br></td>					   
+						   <td><label for="book"> {{ book.arrivedate }} </label><br></td>							   
+						   <td><label for="book"> {{ book.quantity }} </label><br></td>
+					   </tr>
+					  {% endfor %}
+				  <table>
+			  </form>
+		</section> 
+		<script>
+		    $('#cart').click(function() {
+				console.log('cart='+$(this))
+				books = [];
+				$("input[name^='input']").each(function() {
+				   var book = $(this)[0];
+				   if (book.checked == true){
+				      	books.push($(this).attr('id'));
+				   }
+				});
+				bookids = books.join()
+				if (books.length>0){
+					window.location.href = "/cart?books='"+bookids+"'";
+				}
+			});
+			
+			var main = function () {
+				var myElement = document.getElementById('managerId');
+				if (myElement){
+					// check the counts value every 5 seconds,
+					setInterval(function () {
+						//$.getJSON("orderNotify", insertOrdersIntoDOM);
+						 $.ajax({url: "orderNotify", success: function(result){
+							$("#notifyInfoId").html(result);
+						 }});
+						console.log('sucess!');
+					}, 5000);
+				}
+			}
+			$(document).ready(main);
+
+        </script> 
+	</body>
+</html>
